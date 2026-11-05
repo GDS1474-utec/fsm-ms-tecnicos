@@ -1,0 +1,135 @@
+{
+  "info": {
+    "name": "FSM - MS-B Técnicos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Colección del microservicio MS-B. Usar token de MS-A o AUTH_MODE=local en dev."
+  },
+  "item": [
+    {
+      "name": "Crear técnico",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": "{{baseUrl}}/tecnicos",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Andrés\",\n  \"apellido\": \"Vargas\",\n  \"correo\": \"andres.vargas@ejemplo.com\",\n  \"telefono\": \"987654321\",\n  \"especialidad\": \"Electricidad\",\n  \"zona\": \"Surco\",\n  \"estado\": \"disponible\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.response.code === 201) {",
+              "  const respuesta = pm.response.json();",
+              "  pm.collectionVariables.set(\"tecnicoId\", respuesta.tecnico.tecnico_id);",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Listar técnicos",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{baseUrl}}/tecnicos?limite=25"
+      }
+    },
+    {
+      "name": "Buscar técnico",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{baseUrl}}/tecnicos/{{tecnicoId}}"
+      }
+    },
+    {
+      "name": "Actualizar técnico",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": "{{baseUrl}}/tecnicos/{{tecnicoId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"estado\": \"ocupado\",\n  \"zona\": \"Miraflores\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Eliminar técnico",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{baseUrl}}/tecnicos/{{tecnicoId}}"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://REEMPLAZAR.execute-api.us-east-1.amazonaws.com/dev"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "tecnicoId",
+      "value": "TEC-001"
+    }
+  ]
+}

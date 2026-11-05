@@ -1,0 +1,71 @@
+service: fsm-tecnicos
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  timeout: 20
+  iam:
+    role: arn:aws:iam::${aws:accountId}:role/LabRole
+  environment:
+    TABLA_TECNICOS: ${self:custom.tablaTecnicos}
+    VALIDADOR_TOKEN: ${self:custom.validadorToken}
+    AUTH_MODE: ${env:AUTH_MODE, 'shared'}
+    JWT_SECRET: ${env:JWT_SECRET, ''}
+    JWT_ISSUER: ${env:JWT_ISSUER, 'fsm-grupo5'}
+    JWT_AUDIENCE: ${env:JWT_AUDIENCE, 'fsm-api'}
+    STAGE: ${sls:stage}
+
+custom:
+  tablaTecnicos: fsm-${sls:stage}-tecnicos
+  validadorToken: fsm-${sls:stage}-validar-token
+
+functions:
+  crearTecnico:
+    handler: src/handlers.crear
+    events:
+      - http: { path: tecnicos, method: post, cors: true }
+  listarTecnicos:
+    handler: src/handlers.listar
+    events:
+      - http: { path: tecnicos, method: get, cors: true }
+  obtenerTecnico:
+    handler: src/handlers.obtener
+    events:
+      - http: { path: 'tecnicos/{id}', method: get, cors: true }
+  actualizarTecnico:
+    handler: src/handlers.actualizar
+    events:
+      - http: { path: 'tecnicos/{id}', method: put, cors: true }
+  eliminarTecnico:
+    handler: src/handlers.eliminar
+    events:
+      - http: { path: 'tecnicos/{id}', method: delete, cors: true }
+
+resources:
+  Resources:
+    TablaTecnicos:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.tablaTecnicos}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - { AttributeName: tenant_id, AttributeType: S }
+          - { AttributeName: tecnico_id, AttributeType: S }
+        KeySchema:
+          - { AttributeName: tenant_id, KeyType: HASH }
+          - { AttributeName: tecnico_id, KeyType: RANGE }
+
+package:
+  patterns:
+    - '!data/**'
+    - '!tests/**'
+    - '!scripts/**'
+    - '!postman/**'
+    - '!docs/**'
+    - '!README.md'
+    - '!.env*'
+    - '!.gitignore'

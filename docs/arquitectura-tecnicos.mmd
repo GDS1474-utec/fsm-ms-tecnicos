@@ -1,0 +1,6 @@
+flowchart LR
+    U[Frontend en Amplify] --> G[API Gateway /tecnicos]
+    G --> L[Lambda CRUD Técnicos]
+    L --> V[Lambda validar-token de MS-A]
+    L --> D[(DynamoDB fsm-dev-tecnicos)]
+    S[Script de datos] --> D

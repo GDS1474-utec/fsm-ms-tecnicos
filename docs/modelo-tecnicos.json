@@ -1,0 +1,33 @@
+{
+  "tabla": "fsm-dev-tecnicos",
+  "motor": "DynamoDB",
+  "clave_particion": "tenant_id",
+  "clave_ordenamiento": "tecnico_id",
+  "tenants": ["tenant-1", "tenant-2", "tenant-3"],
+  "atributos": {
+    "tenant_id": "string",
+    "tecnico_id": "string",
+    "nombre": "string",
+    "apellido": "string",
+    "correo": "string",
+    "telefono": "string",
+    "especialidad": "string",
+    "zona": "string",
+    "estado": "disponible | ocupado | inactivo | vacaciones",
+    "fecha_creacion": "ISO 8601",
+    "fecha_actualizacion": "ISO 8601"
+  },
+  "registro_ejemplo": {
+    "tenant_id": "tenant-1",
+    "tecnico_id": "TEC-001",
+    "nombre": "Luis",
+    "apellido": "Rojas",
+    "correo": "tecnico1@tenant-1.example.com",
+    "telefono": "987654321",
+    "especialidad": "Electricidad",
+    "zona": "Surco",
+    "estado": "disponible",
+    "fecha_creacion": "2026-10-01T08:00:00Z",
+    "fecha_actualizacion": "2026-10-01T08:00:00Z"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "fsm-ms-tecnicos",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Microservicio de técnicos del proyecto FSM",
+  "main": "src/handlers.js",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "datos": "node scripts/generar-datos.js",
+    "verificar": "node scripts/verificar-datos.js",
+    "cargar": "node scripts/cargar-tecnicos.js",
+    "token": "node scripts/crear-token.js",
+    "probar-api": "node scripts/probar-api.js",
+    "deploy": "serverless deploy --stage dev",
+    "info": "serverless info --stage dev"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.800.0",
+    "@aws-sdk/client-lambda": "^3.800.0",
+    "@aws-sdk/lib-dynamodb": "^3.800.0"
+  },
+  "devDependencies": { "serverless": "^3.40.0" }
+}
