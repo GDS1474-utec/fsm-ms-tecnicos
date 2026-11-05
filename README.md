@@ -1,7 +1,4 @@
 # FSM SaaS - Microservicio de Técnicos (MS-B)
-
-Proyecto final de Cloud Computing CS2032, grupo 5. Gestión de técnicos para la plataforma FSM.
-
 ## Estructura
 
 ```text
@@ -151,22 +148,3 @@ node scripts/probar-api.js "$API_URL"
 ```
 
 La prueba crea un técnico en `tenant-1`, comprueba que `tenant-2` no puede leerlo, lo modifica y lo elimina. También puedes importar `postman/FSM_Tecnicos.postman_collection.json` en Postman y configurar `baseUrl` y `token`.
-
-## Subir a GitHub
-
-Crea un repositorio público vacío llamado `fsm-ms-tecnicos` y ejecuta desde esta carpeta:
-
-```bash
-git init
-git add .
-git commit -m "Microservicio de tecnicos FSM"
-git branch -M main
-git remote add origin https://github.com/TU_USUARIO/fsm-ms-tecnicos.git
-git push -u origin main
-```
-
-También puedes subir el contenido de esta carpeta con **Add file > Upload files** en GitHub. No subas `node_modules`, `.serverless`, `.env` ni los archivos `.jsonl` generados.
-
-## Entregables
-
-La estructura de DynamoDB está documentada en `docs/modelo-tecnicos.json`. Para el informe, guardar capturas de API Gateway, funciones Lambda, tabla DynamoDB, la carga de datos, ejecución de las pruebas y la demo multi-tenant. El repositorio de MS-B no despliega los recursos de los demás microservicios.
